@@ -1,0 +1,134 @@
+create database Quiz_v3
+use Quiz_v3
+create table ThiSinh(
+       MaTS varchar(10) not null,     
+       Ten nvarchar(40),                 
+       DN nvarchar(40),                  
+       MK nvarchar(50),                  
+       NgaySinh varchar(22),             
+       Lop varchar(10),               
+       Khoa varchar(10),             
+       HinhAnh image,                    
+       TrangThai bit,                  
+       Quyen bit,                        
+       Mess nvarchar(200),          
+       primary key clustered (MaTS)
+)
+create table Khoa(
+       MaKhoa varchar(10),
+       TenKhoa nvarchar(50),
+       primary key clustered(MaKhoa)
+)
+create table Lop(
+       MaLop varchar(10),
+       TenLop nvarchar(50),
+       MaKhoa varchar(10),
+       primary key clustered(MaLop)
+)
+create table NhanVien(
+       MaNV varchar(10) not null,  
+       Ten nvarchar(50),
+       DN nvarchar(40),
+       MK nvarchar(40),
+       NgaySinh varchar(20),
+       DonViCongTac nvarchar(30),        
+       Quyen bit,         
+       PhanQuyen char(1),         
+       HinhAnh image,                            
+       primary key clustered (MaNV)
+)
+
+
+create table CauHoi(
+       MaCH int identity not null,       
+       HinhThucCH char(2),              
+       NoiDung nvarchar(300),            
+       Hinh image,                     
+       MaMon nvarchar(10),               
+       DoKho char(1),                    
+       primary key clustered (MaCH)
+)
+create table DapAn(
+       MaDA int identity not null,       
+       MaCH int,                         
+       NoiDung nvarchar(300),         
+       DungSai bit,                      
+       primary key clustered (MaDA)
+)
+create table Mon(
+       MaMon nvarchar(10) not null,
+       Ten nvarchar(30),
+       primary key clustered(MaMon)
+)
+create table KyThi(
+       MaKyThi int identity not null,    
+       MaMon nvarchar(10) not null,      
+       TenKT nvarchar(20),             
+       DoiTuong nvarchar(10),            
+       MaNV varchar(10),                 
+       TGLamBai int,                  
+       TGMoDe smalldatetime,             
+       TGDongDe smalldatetime,          
+       TongSoCau int,                   
+       TLDe int,                         
+       TLKho int,                        
+       -- TLTB = [100 - (TLDe + TLTKho)]
+       TDDe int,                         
+       TDKho int,                     
+       CauMDA bit,                      
+       CauNDA bit,                     
+       CauDT bit,                     
+       Chat bit,                        
+       TienLui bit,               
+       Mat bit,                    
+       MatKhau nvarchar(20),                  
+       primary key clustered (MaKyThi)
+)
+create table KetQua(
+       MaKQ int identity not null,      
+       MaTS varchar(10) not null,
+       MaKyThi int not null,
+       NgayThi varchar(25), 
+       Diem float,
+       TongTGThi int, 
+       TGTraLoiDe int, 
+       TGTraLoiTrungBinh int, 
+       Loai bit, 
+       primary key clustered (MaKQ)
+)
+create table BaoCaoLoi(
+       MaSo int identity not null, 
+       Loai nvarchar(30), 
+       MoTa nvarchar(300),
+       MaTS varchar(10), 
+       TinhTrang nvarchar (20),
+       primary key clustered (MaSo)
+)
+create table ChatBox(
+       IDBox int identity not null,
+       Loai char(1), 
+       MaN1 varchar(10),
+       MaN2 varchar(10),
+       primary key clustered (IDBox)
+)
+create table ChatMess(
+       IDBox int,
+       IDMess int identity,
+       MaN nvarchar(10),
+       NoiDung nvarchar(200),
+       primary key clustered (IDMess)
+)
+create table PhieuTraLoi(
+       MaKQ int,
+       STT int,
+       HinhThucCH char(2),
+       MaCH int,
+       DapAn nvarchar(100),
+       ChuoiDapAn nvarchar(200),
+       primary key clustered (MaKQ, STT)
+)
+create table LogThi(
+       MaTS varchar(10),
+       MaKyThi varchar(10),
+       Thi bit, 
+)
